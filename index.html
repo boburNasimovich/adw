@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Bigburger POS</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="brand">
+      <div>
+        <h1>Bigburger POS</h1>
+        <p>Kassa & Ombor</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button id="btnExpense" class="btn btn-blue">Xarajat</button>
+      <button id="btnAdmin" class="btn btn-dark">Admin</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="left">
+      <input id="search" type="search" placeholder="Mahsulot qidirish..." class="search" />
+      <div id="categories" class="categories"></div>
+      <div id="menuGrid" class="menu-grid"></div>
+    </section>
+
+    <aside class="right">
+      <div class="cart-card">
+        <div class="tables-box">
+          <label>STOL</label>
+          <div id="tables" class="tables"></div>
+        </div>
+        <div class="cart-box">
+          <div class="cart-head">
+            <h3>Savat (<span id="cartCount">0</span>)</h3>
+            <button id="btnClear" class="link-red" style="display:none">Tozalash</button>
+          </div>
+          <div id="cartList" class="cart-list"></div>
+        </div>
+        <div class="pay-box">
+          <div class="total-row">
+            <span>Jami:</span>
+            <span id="total" class="total">0 so'm</span>
+          </div>
+          <div class="pay-methods">
+            <button id="payNaqd" class="pay-btn active">Naqd</button>
+            <button id="payKarta" class="pay-btn">Karta</button>
+          </div>
+          <button id="btnSell" class="sell-btn" disabled>SOTISH</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+</div>
+
+<!-- Loader overlay -->
+<div id="loader" class="overlay hidden">
+  <div class="loader-card">
+    <span class="spinner"></span>
+    <div>Sotuv saqlanmoqda...</div>
+  </div>
+</div>
+
+<!-- Expense modal -->
+<div id="expenseModal" class="overlay hidden">
+  <div class="modal">
+    <h3>Xarajat kiritish</h3>
+    <input id="expAmount" type="number" placeholder="Summa (so'm)" />
+    <input id="expReason" type="text" placeholder="Nima keldi? (Non, Sosiska, ...)" />
+    <div class="modal-actions">
+      <button id="expSave" class="btn btn-green">Saqlash</button>
+      <button class="btn btn-light" data-close="expenseModal">Yopish</button>
+    </div>
+  </div>
+</div>
+
+<!-- Admin panel -->
+<div id="adminPanel" class="overlay hidden">
+  <div class="admin">
+    <div class="admin-head">
+      <h2>Admin Paneli</h2>
+      <button class="btn btn-light" data-close="adminPanel">✕ Yopish</button>
+    </div>
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-tab="stats">Hisobot</button>
+      <button class="admin-tab" data-tab="inventory">Ombor</button>
+      <button class="admin-tab" data-tab="history">Tarix</button>
+    </div>
+    <div class="admin-body">
+      <div id="tab-stats" class="tab-panel"></div>
+      <div id="tab-inventory" class="tab-panel hidden"></div>
+      <div id="tab-history" class="tab-panel hidden"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast hidden"></div>
+
+<!-- Firebase compat SDK (browser-friendly, no build step) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
