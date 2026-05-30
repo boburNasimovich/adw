@@ -14,7 +14,7 @@ const db = firebase.database();
 // ============== Data ==============
 const ADMIN_PASSWORD = "volk1111";
 const TABLES = ["1-stol","2-stol","3-stol","4-stol","5-stol","Olib ketish"];
-const CATEGORIES = ["Burgerlar","Lavashlar","Hotdoglar","Pitsalar","Tovuq","Ichimliklar","Shirinliklar"];
+const CATEGORIES = ["Burgerlar","Lavashlar","Hotdoglar","Pitsalar","Tovuq","Ichimliklar","Shirinliklar","Qoshimcha"];
 
 const INGREDIENTS = [
   {id:"burger_bun",name:"Burger noni",unit:"dona",emoji:"🍞"},
@@ -23,27 +23,22 @@ const INGREDIENTS = [
   {id:"non",name:"Non (tandir)",unit:"dona",emoji:"🥯"},
   {id:"kotlet",name:"Kotlet",unit:"dona",emoji:"🥩"},
   {id:"sosiska",name:"Sosiska",unit:"dona",emoji:"🌭"},
-  {id:"qazi",name:"Qazi",unit:"dona",emoji:"🥓"},
-  {id:"tovuq_file",name:"Tovuq filesi",unit:"porsiya",emoji:"🍗"},
+  {id:"qazi",name:"Qazi",unit:"gr",emoji:"🥓"},
   {id:"tandir_tovuq",name:"Tandir tovuq",unit:"dona",emoji:"🍗"},
   {id:"grill_tovuq",name:"Grill tovuq",unit:"dona",emoji:"🍗"},
   {id:"kfc_tovuq",name:"KFC tovuq",unit:"gr",emoji:"🍗"},
-  {id:"pomidor",name:"Pomidor",unit:"dona",emoji:"🍅"},
-  {id:"bodring",name:"Bodring (tuz.)",unit:"dona",emoji:"🥒"},
+  {id:"pomidor",name:"Pomidor",unit:"gr",emoji:"🍅"},
+  {id:"bodring",name:"Bodring (tuz.)",unit:"gr",emoji:"🥒"},
   {id:"salat",name:"Salat bargi",unit:"dona",emoji:"🥬"},
-  {id:"piyoz",name:"Piyoz",unit:"dona",emoji:"🧅"},
   {id:"pishloq",name:"Pishloq",unit:"dona",emoji:"🧀"},
-  {id:"sous",name:"Sous (porsiya)",unit:"porsiya",emoji:"🥫"},
   {id:"pizza_xamiri",name:"Pizza xamiri",unit:"dona",emoji:"🥣"},
-  {id:"pepperoni",name:"Pepperoni",unit:"porsiya",emoji:"🍕"},
-  {id:"gosht",name:"Mol go'shti",unit:"porsiya",emoji:"🥩"},
-  {id:"kartoshka",name:"Kartoshka fri",unit:"porsiya",emoji:"🍟"},
+  {id:"gosht",name:"Mol go'shti",unit:"gr",emoji:"🥩"},
+  {id:"kartoshka",name:"Kartoshka fri",unit:"gr",emoji:"🍟"},
   {id:"ichimlik_025",name:"Tara 0.25L",unit:"dona",emoji:"🥤"},
   {id:"suv_05",name:"Suv 0.5L",unit:"dona",emoji:"💧"},
   {id:"kofe_porsiya",name:"Kofe",unit:"porsiya",emoji:"☕"},
   {id:"choy_paket",name:"Choy paketi",unit:"dona",emoji:"🍵"},
   {id:"shirinlik_kusok",name:"Shirinlik",unit:"kusok",emoji:"🍰"},
-  {id:"tara_stakan",name:"Bir martalik stakan",unit:"dona",emoji:"🥤"},
 ];
 
 const IMG = {
@@ -59,38 +54,43 @@ const IMG = {
   cola:"images/cola.jpg", water:"images/water.jpg", coffee:"images/coffee.jpg",
   tea:"images/tea.jpg", tea_pot:"images/tea-pot.jpg", dessert:"images/dessert.jpg",
   fries:"images/fries.jpg",
+  cheese:"images/cheese.jpg",
 };
 
 const MENU = [
   // Burgerlar
-  {id:"gamburger",name:"Gamburger",price:20000,category:"Burgerlar",image:"burger",recipe:{burger_bun:1,kotlet:1,pomidor:0.25,bodring:0.25,salat:0.5,sous:1}},
-  {id:"big_burger",name:"Big Burger",price:30000,category:"Burgerlar",image:"big_burger",recipe:{burger_bun:1,kotlet:2,pishloq:1,pomidor:0.5,bodring:0.5,salat:1,sous:1}},
-  {id:"chisburger",name:"Chisburger",price:25000,category:"Burgerlar",image:"cheeseburger",recipe:{burger_bun:1,kotlet:1,pishloq:1,pomidor:0.25,bodring:0.25,sous:1}},
-  {id:"chisburger_2",name:"Chisburger 2 kotlet",price:30000,category:"Burgerlar",image:"cheeseburger",recipe:{burger_bun:1,kotlet:2,pishloq:1,pomidor:0.25,bodring:0.25,sous:1}},
-  {id:"nonburger",name:"Nonburger",price:32000,category:"Burgerlar",image:"nonburger",recipe:{non:1,kotlet:1,pishloq:1,pomidor:0.5,bodring:0.5,salat:1,sous:1}},
-  {id:"nonburger_dobriy",name:"Nonburger dobriy",price:35000,category:"Burgerlar",image:"nonburger",recipe:{non:1,kotlet:2,pishloq:1,pomidor:0.5,bodring:0.5,salat:1,sous:1}},
-  {id:"danar",name:"Danar",price:28000,category:"Burgerlar",image:"doner",recipe:{burger_bun:1,tovuq_file:1,pomidor:0.5,bodring:0.5,piyoz:0.25,sous:1}},
-  {id:"xaggi",name:"Xaggi",price:28000,category:"Burgerlar",image:"xaggi",recipe:{burger_bun:1,kotlet:1,pishloq:1,sous:1}},
-  {id:"nonkabob",name:"Nonkabob",price:35000,category:"Burgerlar",image:"nonkabob",recipe:{non:1,gosht:1,piyoz:0.5,pomidor:0.5,sous:1}},
+  {id:"gamburger",name:"Gamburger",price:20000,category:"Burgerlar",image:"burger",recipe:{burger_bun:1,kotlet:1,pomidor:0.25,bodring:0.25,salat:0.5,}},
+  {id:"big_burger",name:"Big Burger",price:30000,category:"Burgerlar",image:"big_burger",recipe:{burger_bun:1,kotlet:2,pishloq:1,pomidor:0.5,bodring:0.5,salat:1,}},
+  {id:"chisburger",name:"Chisburger",price:25000,category:"Burgerlar",image:"cheeseburger",recipe:{burger_bun:1,kotlet:1,pishloq:1,pomidor:0.25,bodring:0.25,}},
+  {id:"chisburger_2",name:"Chisburger 2 kotlet",price:30000,category:"Burgerlar",image:"cheeseburger",recipe:{burger_bun:1,kotlet:2,pishloq:1,pomidor:0.25,bodring:0.25,}},
+  {id:"nonburger",name:"Nonburger",price:32000,category:"Burgerlar",image:"nonburger",recipe:{non:1,kotlet:1,pishloq:1,pomidor:0.5,bodring:0.5,salat:1,}},
+  {id:"nonburger_dobriy",name:"Nonburger dobriy",price:35000,category:"Burgerlar",image:"nonburger",recipe:{non:1,pishloq:1,pomidor:0.5,bodring:0.5,salat:1,}},
+  {id:"danar",name:"Danar",price:28000,category:"Burgerlar",image:"doner",recipe:{burger_bun:1,tovuq_file:65,pomidor:0.5,bodring:0.5,piyoz:0.25,}},
+  {id:"xaggi",name:"Xaggi",price:28000,category:"Burgerlar",image:"xaggi",recipe:{burger_bun:1,kotlet:1,pishloq:1,}},
+  {id:"nonkabob",name:"Nonkabob",price:35000,category:"Burgerlar",image:"nonkabob",recipe:{non:1,gosht:1,piyoz:0.5,pomidor:0.5,}},
+  
   // Lavashlar
-  {id:"lavash_mini",name:"Lavash mini",price:28000,category:"Lavashlar",image:"lavash_mini",recipe:{lavash_dough:1,tovuq_file:0.5,kartoshka:0.3,pomidor:0.25,bodring:0.25,sous:1}},
-  {id:"lavash_tovuq",name:"Lavash tovuq",price:25000,category:"Lavashlar",image:"lavash_chicken",recipe:{lavash_dough:1,tovuq_file:1,kartoshka:0.5,pomidor:0.5,bodring:0.5,sous:1}},
-  {id:"lavash_std",name:"Lavash standart",price:32000,category:"Lavashlar",image:"lavash_std",recipe:{lavash_dough:1,tovuq_file:1,kartoshka:0.5,pomidor:0.5,bodring:0.5,salat:1,sous:1}},
-  {id:"lavash_dobriy",name:"Lavash dobriy",price:35000,category:"Lavashlar",image:"lavash_std",recipe:{lavash_dough:1,tovuq_file:1.5,pishloq:1,kartoshka:0.5,pomidor:0.5,bodring:0.5,sous:1}},
-  {id:"lavash_tandir",name:"Lavash tandir",price:38000,category:"Lavashlar",image:"lavash_std",recipe:{lavash_dough:1,tandir_tovuq:0.25,kartoshka:0.5,pomidor:0.5,bodring:0.5,sous:1}},
-  {id:"lavash_sirli",name:"Lavash sirli",price:38000,category:"Lavashlar",image:"lavash_std",recipe:{lavash_dough:1,tovuq_file:1,pishloq:2,kartoshka:0.5,sous:1}},
-  {id:"lavash_hotdog",name:"Lavashda hotdog",price:20000,category:"Lavashlar",image:"lavash_hotdog",recipe:{lavash_dough:1,sosiska:1,kartoshka:0.3,sous:1}},
-  {id:"lavash_kotlet",name:"Lavash s kotletoy",price:35000,category:"Lavashlar",image:"lavash_std",recipe:{lavash_dough:1,kotlet:1,kartoshka:0.5,pomidor:0.5,bodring:0.5,sous:1}},
+  {id:"lavash_mini",name:"Lavash mini",price:28000,category:"Lavashlar",image:"lavash_mini",recipe:{lavash_dough:1,tovuq_file:65,kartoshka:0.3,pomidor:0.25,bodring:0.25,}},
+  {id:"lavash_tovuq",name:"Lavash tovuq",price:25000,category:"Lavashlar",image:"lavash_chicken",recipe:{lavash_dough:1,tovuq_file:85,kartoshka:0.5,pomidor:0.5,bodring:0.5,}},
+  {id:"lavash_std",name:"Lavash standart",price:32000,category:"Lavashlar",image:"lavash_std",recipe:{lavash_dough:1,tovuq_file:85,kartoshka:0.5,pomidor:0.5,bodring:0.5,salat:1,}},
+  {id:"lavash_dobriy",name:"Lavash dobriy",price:35000,category:"Lavashlar",image:"lavash_std",recipe:{lavash_dough:1,tovuq_file:95,kartoshka:0.5,pomidor:0.5,bodring:0.5,}},
+  {id:"lavash_tandir",name:"Lavash tandir",price:38000,category:"Lavashlar",image:"lavash_std",recipe:{lavash_dough:1,tandir_tovuq:0.25,kartoshka:0.5,pomidor:0.5,bodring:0.5,}},
+  {id:"lavash_sirli",name:"Lavash sirli",price:38000,category:"Lavashlar",image:"lavash_std",recipe:{lavash_dough:1,tovuq_file:85,pishloq:2,kartoshka:0.5,}},
+  {id:"lavash_hotdog",name:"Lavashda hotdog",price:20000,category:"Lavashlar",image:"lavash_hotdog",recipe:{lavash_dough:1,sosiska:3,kartoshka:0.3,}},
+  {id:"lavash_kotlet",name:"Lavash s kotletoy",price:35000,category:"Lavashlar",image:"lavash_std",recipe:{lavash_dough:1,kotlet:1,kartoshka:0.5,pomidor:0.5,bodring:0.5,}},
+  
   // Hotdoglar
-  {id:"hotdog_1",name:"Hotdog 1 sasiska",price:10000,category:"Hotdoglar",image:"hotdog_classic",recipe:{hotdog_bun:1,sosiska:1,sous:1}},
-  {id:"hotdog_kanada",name:"Hotdog kanada",price:13000,category:"Hotdoglar",image:"hotdog_classic",recipe:{hotdog_bun:1,sosiska:1,pishloq:1,sous:1}},
-  {id:"hotdog_2",name:"Hotdog 2 sasiska",price:16000,category:"Hotdoglar",image:"hotdog_big",recipe:{hotdog_bun:1,sosiska:2,sous:1}},
-  {id:"big_hotdog",name:"Big hotdog",price:20000,category:"Hotdoglar",image:"hotdog_big",recipe:{hotdog_bun:1,sosiska:2,pishloq:1,sous:1}},
-  {id:"hotdog_qazi",name:"Hotdog qazili",price:35000,category:"Hotdoglar",image:"hotdog_big",recipe:{hotdog_bun:1,qazi:1,pishloq:1,sous:1}},
+  {id:"hotdog_1",name:"Hotdog 1 sasiska",price:10000,category:"Hotdoglar",image:"hotdog_classic",recipe:{hotdog_bun:1,sosiska:1,pomidor:50,bodring:50}},
+  {id:"hotdog_kanada",name:"Hotdog kanada",price:13000,category:"Hotdoglar",image:"hotdog_classic",recipe:{hotdog_bun:1,sosiska:1,pishloq:1,pomidor:50,bodring:50}},
+  {id:"hotdog_2",name:"Hotdog 2 sasiska",price:16000,category:"Hotdoglar",image:"hotdog_big",recipe:{hotdog_bun:1,sosiska:2,pomidor:50,bodring:50}},
+  {id:"big_hotdog",name:"Big hotdog",price:20000,category:"Hotdoglar",image:"hotdog_big",recipe:{hotdog_bun:1,sosiska:2,pomidor:50,bodring:50}},
+  {id:"hotdog_qazi",name:"Hotdog qazili",price:35000,category:"Hotdoglar",image:"hotdog_big",recipe:{hotdog_bun:1,qazi:1,pomidor:50,bodring:50}},
+  
   // Pitsalar
-  {id:"pepperoni",name:"Pepperoni",price:70000,category:"Pitsalar",image:"pizza_pepperoni",recipe:{pizza_xamiri:1,pepperoni:1,pishloq:2,sous:1}},
-  {id:"goshtlik",name:"Go'shtlik",price:80000,category:"Pitsalar",image:"pizza_meat",recipe:{pizza_xamiri:1,gosht:1,pishloq:2,piyoz:0.5,sous:1}},
-  {id:"asarti",name:"Asarti",price:90000,category:"Pitsalar",image:"pizza_asarti",recipe:{pizza_xamiri:1,pepperoni:0.5,gosht:0.5,pishloq:2,sous:1}},
+  {id:"pepperoni",name:"Pepperoni",price:70000,category:"Pitsalar",image:"pizza_pepperoni",recipe:{pizza_xamiri:1,pepperoni:1,pishloq:2,}},
+  {id:"goshtlik",name:"Go'shtlik",price:80000,category:"Pitsalar",image:"pizza_meat",recipe:{pizza_xamiri:1,gosht:150,pishloq:2,piyoz:0.5,}},
+  {id:"asarti",name:"Asarti",price:90000,category:"Pitsalar",image:"pizza_asarti",recipe:{pizza_xamiri:1,pepperoni:0.5,gosht:0.5,pishloq:2,}},
+  
   // Tovuq
   {id:"grill",name:"Grill",price:55000,category:"Tovuq",image:"grill_chicken",recipe:{grill_tovuq:1}},
   {id:"tandir_1",name:"Tandir tovuq 1",price:50000,category:"Tovuq",image:"tandir_chicken",recipe:{tandir_tovuq:1}},
@@ -100,15 +100,19 @@ const MENU = [
   {id:"kfs_60k",name:"Kfs (tovuq) 60000 so'm",price:60000,category:"Tovuq",image:"kfc_chicken",recipe:{kfc_tovuq:750}},
   {id:"kfs_70k",name:"Kfs (tovuq) 70000 so'm",price:70000,category:"Tovuq",image:"kfc_chicken",recipe:{kfc_tovuq:850}},
   {id:"kfs_1k",name:"Kfs (tovuq) 1KG",price:85000,category:"Tovuq",image:"kfc_chicken",recipe:{kfc_tovuq:1000}},
+  
   // Ichimliklar
   {id:"tara_025",name:"Tara 0.25L",price:5000,category:"Ichimliklar",image:"cola",recipe:{ichimlik_025:1}},
   {id:"suv_05",name:"Suv gazsiz 0.5L",price:3000,category:"Ichimliklar",image:"water",recipe:{suv_05:1}},
   {id:"kofe",name:"Kofe 1 stakan",price:5000,category:"Ichimliklar",image:"coffee",recipe:{kofe_porsiya:1,tara_stakan:1}},
   {id:"choy_stakan",name:"Choy 1 stakan",price:2000,category:"Ichimliklar",image:"tea",recipe:{choy_paket:1,tara_stakan:1}},
   {id:"choy_choynak",name:"Choy 1 choynak",price:5000,category:"Ichimliklar",image:"tea_pot",recipe:{choy_paket:2}},
+  
   // Shirinliklar
   {id:"shirinlik",name:"Shirinlik 1 kusok",price:10000,category:"Shirinliklar",image:"dessert",recipe:{shirinlik_kusok:1}},
   {id:"fri",name:"Kartoshka fri 1 porsya",price:10000,category:"Shirinliklar",image:"fries",recipe:{kartoshka:1}},
+
+  {id:"pishloq",name:"Pishloq",price:8000,category:"Qoshimcha",image:"cheese",recipe:{}},
 ];
 
 // ============== State ==============
