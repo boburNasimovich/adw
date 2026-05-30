@@ -74,7 +74,7 @@ const MENU = [
   {id:"lavash_tovuq",name:"Lavash tovuq",price:25000,category:"Lavashlar",image:"lavash_chicken",recipe:{lavash_dough:1,tovuq_file:85,kartoshka:0.5,pomidor:0.5,bodring:0.5,}},
   {id:"lavash_std",name:"Lavash standart",price:32000,category:"Lavashlar",image:"lavash_std",recipe:{lavash_dough:1,tovuq_file:85,kartoshka:0.5,pomidor:0.5,bodring:0.5,salat:1,}},
   {id:"lavash_dobriy",name:"Lavash dobriy",price:35000,category:"Lavashlar",image:"lavash_std",recipe:{lavash_dough:1,tovuq_file:95,kartoshka:0.5,pomidor:0.5,bodring:0.5,}},
-  {id:"lavash_tandir",name:"Lavash tandir",price:38000,category:"Lavashlar",image:"lavash_std",recipe:{lavash_dough:1,tandir_tovuq:0.25,kartoshka:0.5,pomidor:0.5,bodring:0.5,}},
+  {id:"lavash_tandir",name:"Lavash tandir",price:38000,category:"Lavashlar",image:"lavash_std",recipe:{lavash_dough:1,kartoshka:0.5,pomidor:0.5,bodring:0.5,}},
   {id:"lavash_sirli",name:"Lavash sirli",price:38000,category:"Lavashlar",image:"lavash_std",recipe:{lavash_dough:1,tovuq_file:85,pishloq:2,kartoshka:0.5,}},
   {id:"lavash_hotdog",name:"Lavashda hotdog",price:20000,category:"Lavashlar",image:"lavash_hotdog",recipe:{lavash_dough:1,sosiska:3,kartoshka:0.3,}},
   {id:"lavash_kotlet",name:"Lavash s kotletoy",price:35000,category:"Lavashlar",image:"lavash_std",recipe:{lavash_dough:1,kotlet:1,kartoshka:0.5,pomidor:0.5,bodring:0.5,}},
